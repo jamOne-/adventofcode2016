@@ -11,7 +11,6 @@ function solve(input) {
     for (let i = 0; i < 1001; i++)
         hashes.push(createHash(input + i));
 
-    console.log('skonczylem preprocessing...');
     while (true) {
         let hash = hashes.shift();
         let letter = firstThreeSameLetters(hash);
