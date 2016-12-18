@@ -4,23 +4,12 @@ fs.readFile('input', 'UTF-8', (err, input) => {
 });
 
 function solve(input) {
-    const length = input.length;
-    let previous = '.' + input + '.';
-    let safe = previous.split('').reduce((v, c) => v += c == '.', -2);
+    let previous = input.split('');
+    let safe = previous.reduce((v, c) => v += c == '.', 0);
 
     for (let i = 1; i < 40; i++) {
-        let aux = '';
-
-        for (let j = 1; j < length + 1; j++) {
-            if (previous[j - 1] == previous[j + 1])
-                aux += '^';
-            else {
-                aux += '.';
-                safe++;
-            }
-        }
-
-        previous = '.' + aux + '.';
+        previous = previous.map((_, i, a) => (a[i - 1] || '.') != (a[i + 1] || '.') ? '^' : '.');
+        safe += previous.reduce((v, c) => v += c == '.', 0);
     }
 
     return safe;
