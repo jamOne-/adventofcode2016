@@ -5,13 +5,6 @@ fs.readFile('input', 'UTF-8', (err, input) => {
 
 function solve(input) {
     const length = input.length;
-    const regules = [
-        ['^', '^', '.'],
-        ['.', '^', '^'],
-        ['^', '.', '.'],
-        ['.', '.', '^']
-    ];
-
     let previous = '.' + input + '.';
     let safe = previous.split('').reduce((v, c) => v += c == '.', -2);
 
@@ -19,7 +12,7 @@ function solve(input) {
         let aux = '';
 
         for (let j = 1; j < length + 1; j++) {
-            if (regules.some(([l, c, r]) => previous[j - 1] == l && previous[j] == c && previous[j + 1] == r))
+            if (previous[j - 1] == previous[j + 1])
                 aux += '^';
             else {
                 aux += '.';
